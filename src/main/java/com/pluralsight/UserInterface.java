@@ -186,7 +186,60 @@ public class UserInterface {
     }
 
     public void processSellLeaseVehicle(){
-        System.out.println("Enter sale to start a sell process");
+        System.out.println("Enter sale to start a sell process, or enter lease to start a lease process ");
+        String input = scanner.nextLine();
+
+        if (input.equalsIgnoreCase("sale")){
+            System.out.println("Enter date");
+            String dateOfContract = scanner.nextLine();
+            System.out.println("Enter name");
+            String customerName = scanner.nextLine();
+            System.out.println("Enter email");
+            String customerEmail = scanner.nextLine();
+            System.out.println("Enter vin number of the vehicle being sold");
+            int vin = scanner.nextInt();
+            scanner.nextLine();
+            Vehicle vehicleSold = null;
+            for (Vehicle v :dealership.getAllVehicles()){
+                if (v.getVin() == vin){
+                    vehicleSold = v;
+                    break;
+                }else {
+                    System.out.println("No vehicle found with entered VIN number");
+                }
+            }
+            System.out.println("finance Yes or No");
+            String financeInput = scanner.nextLine();
+            boolean finance = financeInput.equalsIgnoreCase("yes");
+
+            Contract salesContract = new SalesContract(dateOfContract,customerName,customerEmail,vehicleSold,finance);
+            ContractsFileManager contractsFileManager = new ContractsFileManager();
+            contractsFileManager.saveContract(salesContract);
+        }
+
+        if (input.equalsIgnoreCase("lease")){
+            System.out.println("Enter date");
+            String dateOfContract = scanner.nextLine();
+            System.out.println("Enter name");
+            String customerName = scanner.nextLine();
+            System.out.println("Enter email");
+            String customerEmail = scanner.nextLine();
+            System.out.println("Enter vin number of the vehicle being sold");
+            int vin = scanner.nextInt();
+            scanner.nextLine();
+            Vehicle vehicleSold = null;
+            for (Vehicle v :dealership.getAllVehicles()){
+                if (v.getVin() == vin){
+                    vehicleSold = v;
+                    break;
+                }else {
+                    System.out.println("No vehicle found with entered VIN number");
+                }
+            }
+            Contract leaseContract = new LeaseContract(dateOfContract,customerName,customerEmail,vehicleSold);
+            ContractsFileManager cfm = new ContractsFileManager();
+            cfm.saveContract(leaseContract);
+        }
 
     }
 

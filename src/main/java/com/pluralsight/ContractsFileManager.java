@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class ContractsFileManager {
     public void saveContract(Contract contract) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("contract.csv",true))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("contracts.csv",true))) {
             // Write Contract information
             bw.write(contract.getDateOfContract() + "|" + contract.getCustomerName() + "|" + contract.getCustomerEmail()+ "|"+ contract.getVehicleSold()+ "|" +contract.getTotalPrice()+ "|" +contract.getMonthlyPayment());
             bw.newLine();
@@ -21,7 +21,7 @@ public class ContractsFileManager {
                 bw.write(leaseContract.toString());
             }
 
-            System.out.println("Dealership saved successfully to dealership.csv.");
+            System.out.println("Contract saved successfully to contracts.csv.");
         } catch (IOException e) {
             e.printStackTrace();
         }
